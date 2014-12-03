@@ -1,0 +1,420 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F74BC0081A2FD487004439F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74BC0071A2FD487004439F2 /* AppDelegate.swift */; };
+		F74BC00A1A2FD487004439F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74BC0091A2FD487004439F2 /* ViewController.swift */; };
+		F74BC00D1A2FD487004439F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F74BC00B1A2FD487004439F2 /* Main.storyboard */; };
+		F74BC00F1A2FD487004439F2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F74BC00E1A2FD487004439F2 /* Images.xcassets */; };
+		F74BC0121A2FD487004439F2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F74BC0101A2FD487004439F2 /* LaunchScreen.xib */; };
+		F74BC01E1A2FD487004439F2 /* DropChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74BC01D1A2FD487004439F2 /* DropChatTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F74BC0181A2FD487004439F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F74BBFFA1A2FD487004439F2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F74BC0011A2FD487004439F2;
+			remoteInfo = DropChat;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F74BC0021A2FD487004439F2 /* DropChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DropChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F74BC0061A2FD487004439F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F74BC0071A2FD487004439F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F74BC0091A2FD487004439F2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F74BC00C1A2FD487004439F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F74BC00E1A2FD487004439F2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F74BC0111A2FD487004439F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		F74BC0171A2FD487004439F2 /* DropChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DropChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F74BC01C1A2FD487004439F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F74BC01D1A2FD487004439F2 /* DropChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropChatTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F74BBFFF1A2FD487004439F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F74BC0141A2FD487004439F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F74BBFF91A2FD487004439F2 = {
+			isa = PBXGroup;
+			children = (
+				F74BC0041A2FD487004439F2 /* DropChat */,
+				F74BC01A1A2FD487004439F2 /* DropChatTests */,
+				F74BC0031A2FD487004439F2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F74BC0031A2FD487004439F2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F74BC0021A2FD487004439F2 /* DropChat.app */,
+				F74BC0171A2FD487004439F2 /* DropChatTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F74BC0041A2FD487004439F2 /* DropChat */ = {
+			isa = PBXGroup;
+			children = (
+				F74BC0071A2FD487004439F2 /* AppDelegate.swift */,
+				F74BC0091A2FD487004439F2 /* ViewController.swift */,
+				F74BC00B1A2FD487004439F2 /* Main.storyboard */,
+				F74BC00E1A2FD487004439F2 /* Images.xcassets */,
+				F74BC0101A2FD487004439F2 /* LaunchScreen.xib */,
+				F74BC0051A2FD487004439F2 /* Supporting Files */,
+			);
+			path = DropChat;
+			sourceTree = "<group>";
+		};
+		F74BC0051A2FD487004439F2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F74BC0061A2FD487004439F2 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F74BC01A1A2FD487004439F2 /* DropChatTests */ = {
+			isa = PBXGroup;
+			children = (
+				F74BC01D1A2FD487004439F2 /* DropChatTests.swift */,
+				F74BC01B1A2FD487004439F2 /* Supporting Files */,
+			);
+			path = DropChatTests;
+			sourceTree = "<group>";
+		};
+		F74BC01B1A2FD487004439F2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F74BC01C1A2FD487004439F2 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F74BC0011A2FD487004439F2 /* DropChat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F74BC0211A2FD487004439F2 /* Build configuration list for PBXNativeTarget "DropChat" */;
+			buildPhases = (
+				F74BBFFE1A2FD487004439F2 /* Sources */,
+				F74BBFFF1A2FD487004439F2 /* Frameworks */,
+				F74BC0001A2FD487004439F2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DropChat;
+			productName = DropChat;
+			productReference = F74BC0021A2FD487004439F2 /* DropChat.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F74BC0161A2FD487004439F2 /* DropChatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F74BC0241A2FD487004439F2 /* Build configuration list for PBXNativeTarget "DropChatTests" */;
+			buildPhases = (
+				F74BC0131A2FD487004439F2 /* Sources */,
+				F74BC0141A2FD487004439F2 /* Frameworks */,
+				F74BC0151A2FD487004439F2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F74BC0191A2FD487004439F2 /* PBXTargetDependency */,
+			);
+			name = DropChatTests;
+			productName = DropChatTests;
+			productReference = F74BC0171A2FD487004439F2 /* DropChatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F74BBFFA1A2FD487004439F2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Eric Smith";
+				TargetAttributes = {
+					F74BC0011A2FD487004439F2 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					F74BC0161A2FD487004439F2 = {
+						CreatedOnToolsVersion = 6.1;
+						TestTargetID = F74BC0011A2FD487004439F2;
+					};
+				};
+			};
+			buildConfigurationList = F74BBFFD1A2FD487004439F2 /* Build configuration list for PBXProject "DropChat" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F74BBFF91A2FD487004439F2;
+			productRefGroup = F74BC0031A2FD487004439F2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F74BC0011A2FD487004439F2 /* DropChat */,
+				F74BC0161A2FD487004439F2 /* DropChatTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F74BC0001A2FD487004439F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F74BC00D1A2FD487004439F2 /* Main.storyboard in Resources */,
+				F74BC0121A2FD487004439F2 /* LaunchScreen.xib in Resources */,
+				F74BC00F1A2FD487004439F2 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F74BC0151A2FD487004439F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F74BBFFE1A2FD487004439F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F74BC00A1A2FD487004439F2 /* ViewController.swift in Sources */,
+				F74BC0081A2FD487004439F2 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F74BC0131A2FD487004439F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F74BC01E1A2FD487004439F2 /* DropChatTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F74BC0191A2FD487004439F2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F74BC0011A2FD487004439F2 /* DropChat */;
+			targetProxy = F74BC0181A2FD487004439F2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F74BC00B1A2FD487004439F2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F74BC00C1A2FD487004439F2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F74BC0101A2FD487004439F2 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F74BC0111A2FD487004439F2 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F74BC01F1A2FD487004439F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F74BC0201A2FD487004439F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F74BC0221A2FD487004439F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = DropChat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F74BC0231A2FD487004439F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = DropChat/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F74BC0251A2FD487004439F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = DropChatTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DropChat.app/DropChat";
+			};
+			name = Debug;
+		};
+		F74BC0261A2FD487004439F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = DropChatTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DropChat.app/DropChat";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F74BBFFD1A2FD487004439F2 /* Build configuration list for PBXProject "DropChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F74BC01F1A2FD487004439F2 /* Debug */,
+				F74BC0201A2FD487004439F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F74BC0211A2FD487004439F2 /* Build configuration list for PBXNativeTarget "DropChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F74BC0221A2FD487004439F2 /* Debug */,
+				F74BC0231A2FD487004439F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F74BC0241A2FD487004439F2 /* Build configuration list for PBXNativeTarget "DropChatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F74BC0251A2FD487004439F2 /* Debug */,
+				F74BC0261A2FD487004439F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F74BBFFA1A2FD487004439F2 /* Project object */;
+}
