@@ -7,12 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F713DE4E1A3D6F43003F69BA /* CustomMKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F713DE4D1A3D6F43003F69BA /* CustomMKAnnotation.swift */; };
 		F74BC0081A2FD487004439F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74BC0071A2FD487004439F2 /* AppDelegate.swift */; };
-		F74BC00A1A2FD487004439F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74BC0091A2FD487004439F2 /* ViewController.swift */; };
 		F74BC00D1A2FD487004439F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F74BC00B1A2FD487004439F2 /* Main.storyboard */; };
 		F74BC00F1A2FD487004439F2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F74BC00E1A2FD487004439F2 /* Images.xcassets */; };
 		F74BC0121A2FD487004439F2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F74BC0101A2FD487004439F2 /* LaunchScreen.xib */; };
 		F74BC01E1A2FD487004439F2 /* DropChatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74BC01D1A2FD487004439F2 /* DropChatTests.swift */; };
+		F74BC02A1A2FDCCF004439F2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74BC0291A2FDCCF004439F2 /* LoginViewController.swift */; };
+		F74BC02C1A2FDD27004439F2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74BC02B1A2FDD27004439F2 /* MapViewController.swift */; };
+		F74BC02E1A2FDDDD004439F2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F74BC02D1A2FDDDD004439F2 /* MapKit.framework */; };
+		F7BAD4621A3FFB3600CE5977 /* arrow-down-off.png in Resources */ = {isa = PBXBuildFile; fileRef = F7BAD4601A3FFB3600CE5977 /* arrow-down-off.png */; };
+		F7BAD4631A3FFB3600CE5977 /* arrow-up-off.png in Resources */ = {isa = PBXBuildFile; fileRef = F7BAD4611A3FFB3600CE5977 /* arrow-up-off.png */; };
+		F7BE371B1A325A11006B08BA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BE371A1A325A11006B08BA /* CameraViewController.swift */; };
+		F7BE37211A32815D006B08BA /* test-feature.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F7BE37201A32815D006B08BA /* test-feature.jpg */; };
+		F7BE37231A328259006B08BA /* ViewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BE37221A328259006B08BA /* ViewPostController.swift */; };
+		F7BE37251A328492006B08BA /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = F7BE37241A328492006B08BA /* clock.png */; };
+		F7C334A61A30F1B70019F40D /* marker.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C334A51A30F1B70019F40D /* marker.png */; };
+		F7C334AA1A30F1E00019F40D /* login-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C334A91A30F1E00019F40D /* login-logo.png */; };
+		F7C5159F1A32C57D00B1985D /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C5159E1A32C57D00B1985D /* CommentTableViewCell.swift */; };
+		F7C5E49E1A3D410A003271D7 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C5E4991A3D4009003271D7 /* Alamofire.framework */; };
+		F7C5E49F1A3D410A003271D7 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F7C5E4991A3D4009003271D7 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F7C5E4A51A3D419E003271D7 /* MarkerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C5E4A41A3D419E003271D7 /* MarkerService.swift */; };
+		F7C6161A1A3CF62A00AC8300 /* marker-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C616171A3CF62A00AC8300 /* marker-normal.png */; };
+		F7C6161B1A3CF62A00AC8300 /* marker-owner.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C616181A3CF62A00AC8300 /* marker-owner.png */; };
+		F7C6161C1A3CF62A00AC8300 /* marker-seen.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C616191A3CF62A00AC8300 /* marker-seen.png */; };
+		F7C6161E1A3CF97B00AC8300 /* arrow-up.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C6161D1A3CF97B00AC8300 /* arrow-up.png */; };
+		F7C616201A3CF9C600AC8300 /* arrow-down.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C6161F1A3CF9C600AC8300 /* arrow-down.png */; };
+		F7C616241A3CFF5A00AC8300 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C616231A3CFF5A00AC8300 /* FacebookSDK.framework */; };
+		F7C772F91A48CBA900365D2E /* add-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C772F81A48CBA900365D2E /* add-btn.png */; };
+		F7C7FE6E1A49090A00371C7B /* pin-map-7.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C7FE6D1A49090A00371C7B /* pin-map-7.png */; };
+		F7C7FE701A49094700371C7B /* compass-point-7.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C7FE6F1A49094700371C7B /* compass-point-7.png */; };
+		F7C7FE721A490A0C00371C7B /* list-fat-7.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C7FE711A490A0C00371C7B /* list-fat-7.png */; };
+		F7C7FE741A490A2A00371C7B /* plus-simple-7.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C7FE731A490A2A00371C7B /* plus-simple-7.png */; };
+		F7C81BC21A466CCB00FF8F34 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C81BC11A466CCB00FF8F34 /* SystemConfiguration.framework */; };
+		F7C81BC51A466D6E00FF8F34 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C81BC41A466D6D00FF8F34 /* Reachability.swift */; };
+		F7C86CAD1A40B83400FE514F /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C86CAC1A40B83400FE514F /* LoginService.swift */; };
+		F7CED4161A414AB0001A50FD /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CED4151A414AB0001A50FD /* LoadingIndicator.swift */; };
+		F7D1D8981A31765100D89A22 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D1D8971A31765100D89A22 /* CustomAnnotationView.swift */; };
+		F7E00BA61A429FDA00F2AC0A /* 719.GIF in Resources */ = {isa = PBXBuildFile; fileRef = F7E00BA51A429FDA00F2AC0A /* 719.GIF */; };
+		F7E2D6261A3F6C75003269BB /* ViewPostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E2D6251A3F6C75003269BB /* ViewPostService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,19 +56,94 @@
 			remoteGlobalIDString = F74BC0011A2FD487004439F2;
 			remoteInfo = DropChat;
 		};
+		F7C5E4981A3D4009003271D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7C5E4931A3D4008003271D7 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8111E3319A95C8B0040E7D1;
+			remoteInfo = Alamofire;
+		};
+		F7C5E49A1A3D4009003271D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7C5E4931A3D4008003271D7 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8111E3E19A95C8B0040E7D1;
+			remoteInfo = AlamofireTests;
+		};
+		F7C5E49C1A3D40DB003271D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7C5E4931A3D4008003271D7 /* Alamofire.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
+			remoteInfo = Alamofire;
+		};
+		F7C5E4A01A3D410A003271D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F7C5E4931A3D4008003271D7 /* Alamofire.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F8111E3219A95C8B0040E7D1;
+			remoteInfo = Alamofire;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		F7C5E4A21A3D410B003271D7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F7C5E49F1A3D410A003271D7 /* Alamofire.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		F713DE4D1A3D6F43003F69BA /* CustomMKAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMKAnnotation.swift; sourceTree = "<group>"; };
 		F74BC0021A2FD487004439F2 /* DropChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DropChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F74BC0061A2FD487004439F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F74BC0071A2FD487004439F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F74BC0091A2FD487004439F2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F74BC00C1A2FD487004439F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F74BC00E1A2FD487004439F2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F74BC0111A2FD487004439F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		F74BC0171A2FD487004439F2 /* DropChatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DropChatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F74BC01C1A2FD487004439F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F74BC01D1A2FD487004439F2 /* DropChatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropChatTests.swift; sourceTree = "<group>"; };
+		F74BC0291A2FDCCF004439F2 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		F74BC02B1A2FDD27004439F2 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		F74BC02D1A2FDDDD004439F2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		F7BAD4601A3FFB3600CE5977 /* arrow-down-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-down-off.png"; sourceTree = "<group>"; };
+		F7BAD4611A3FFB3600CE5977 /* arrow-up-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-off.png"; sourceTree = "<group>"; };
+		F7BE19781A3D0164001B8D96 /* Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridge-Header.h"; path = "../Bridge-Header.h"; sourceTree = "<group>"; };
+		F7BE371A1A325A11006B08BA /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		F7BE37201A32815D006B08BA /* test-feature.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "test-feature.jpg"; sourceTree = "<group>"; };
+		F7BE37221A328259006B08BA /* ViewPostController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPostController.swift; sourceTree = "<group>"; };
+		F7BE37241A328492006B08BA /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
+		F7C334A51A30F1B70019F40D /* marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = marker.png; sourceTree = "<group>"; };
+		F7C334A91A30F1E00019F40D /* login-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-logo.png"; sourceTree = "<group>"; };
+		F7C5159E1A32C57D00B1985D /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		F7C5E4931A3D4008003271D7 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
+		F7C5E4A41A3D419E003271D7 /* MarkerService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerService.swift; sourceTree = "<group>"; };
+		F7C616171A3CF62A00AC8300 /* marker-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-normal.png"; sourceTree = "<group>"; };
+		F7C616181A3CF62A00AC8300 /* marker-owner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-owner.png"; sourceTree = "<group>"; };
+		F7C616191A3CF62A00AC8300 /* marker-seen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-seen.png"; sourceTree = "<group>"; };
+		F7C6161D1A3CF97B00AC8300 /* arrow-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up.png"; sourceTree = "<group>"; };
+		F7C6161F1A3CF9C600AC8300 /* arrow-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-down.png"; sourceTree = "<group>"; };
+		F7C616231A3CFF5A00AC8300 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		F7C772F81A48CBA900365D2E /* add-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-btn.png"; sourceTree = "<group>"; };
+		F7C7FE6D1A49090A00371C7B /* pin-map-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin-map-7.png"; sourceTree = "<group>"; };
+		F7C7FE6F1A49094700371C7B /* compass-point-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass-point-7.png"; sourceTree = "<group>"; };
+		F7C7FE711A490A0C00371C7B /* list-fat-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-fat-7.png"; sourceTree = "<group>"; };
+		F7C7FE731A490A2A00371C7B /* plus-simple-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-simple-7.png"; sourceTree = "<group>"; };
+		F7C81BC11A466CCB00FF8F34 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F7C81BC41A466D6D00FF8F34 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		F7C86CAC1A40B83400FE514F /* LoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
+		F7CED4151A414AB0001A50FD /* LoadingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
+		F7D1D8971A31765100D89A22 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
+		F7E00BA51A429FDA00F2AC0A /* 719.GIF */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 719.GIF; sourceTree = "<group>"; };
+		F7E2D6251A3F6C75003269BB /* ViewPostService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPostService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +151,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7C81BC21A466CCB00FF8F34 /* SystemConfiguration.framework in Frameworks */,
+				F74BC02E1A2FDDDD004439F2 /* MapKit.framework in Frameworks */,
+				F7C5E49E1A3D410A003271D7 /* Alamofire.framework in Frameworks */,
+				F7C616241A3CFF5A00AC8300 /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +171,8 @@
 		F74BBFF91A2FD487004439F2 = {
 			isa = PBXGroup;
 			children = (
+				F7C5E4931A3D4008003271D7 /* Alamofire.xcodeproj */,
+				F7C616251A3CFF6500AC8300 /* Frameworks */,
 				F74BC0041A2FD487004439F2 /* DropChat */,
 				F74BC01A1A2FD487004439F2 /* DropChatTests */,
 				F74BC0031A2FD487004439F2 /* Products */,
@@ -77,8 +191,14 @@
 		F74BC0041A2FD487004439F2 /* DropChat */ = {
 			isa = PBXGroup;
 			children = (
+				F7CED4131A414842001A50FD /* Other */,
+				F7C5E4A31A3D4170003271D7 /* Services */,
+				F7BE371D1A327E1B006B08BA /* ViewPost */,
+				F7BE371C1A325CE7006B08BA /* Post */,
+				F7C427261A30EF5200E2C8CE /* Images */,
+				F74BC0281A2FDCA1004439F2 /* Map */,
+				F74BC0271A2FDC99004439F2 /* Login */,
 				F74BC0071A2FD487004439F2 /* AppDelegate.swift */,
-				F74BC0091A2FD487004439F2 /* ViewController.swift */,
 				F74BC00B1A2FD487004439F2 /* Main.storyboard */,
 				F74BC00E1A2FD487004439F2 /* Images.xcassets */,
 				F74BC0101A2FD487004439F2 /* LaunchScreen.xib */,
@@ -112,6 +232,112 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F74BC0271A2FDC99004439F2 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				F74BC0291A2FDCCF004439F2 /* LoginViewController.swift */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		F74BC0281A2FDCA1004439F2 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				F74BC02B1A2FDD27004439F2 /* MapViewController.swift */,
+				F713DE4D1A3D6F43003F69BA /* CustomMKAnnotation.swift */,
+				F7D1D8971A31765100D89A22 /* CustomAnnotationView.swift */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
+		F7BE371C1A325CE7006B08BA /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				F7BE371A1A325A11006B08BA /* CameraViewController.swift */,
+			);
+			name = Post;
+			sourceTree = "<group>";
+		};
+		F7BE371D1A327E1B006B08BA /* ViewPost */ = {
+			isa = PBXGroup;
+			children = (
+				F7BE37221A328259006B08BA /* ViewPostController.swift */,
+				F7C5159E1A32C57D00B1985D /* CommentTableViewCell.swift */,
+			);
+			name = ViewPost;
+			sourceTree = "<group>";
+		};
+		F7C427261A30EF5200E2C8CE /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				F7C7FE5F1A4907AE00371C7B /* Icons */,
+				F7E00BA51A429FDA00F2AC0A /* 719.GIF */,
+				F7BAD4601A3FFB3600CE5977 /* arrow-down-off.png */,
+				F7BAD4611A3FFB3600CE5977 /* arrow-up-off.png */,
+				F7C616171A3CF62A00AC8300 /* marker-normal.png */,
+				F7C772F81A48CBA900365D2E /* add-btn.png */,
+				F7C6161F1A3CF9C600AC8300 /* arrow-down.png */,
+				F7C616181A3CF62A00AC8300 /* marker-owner.png */,
+				F7C616191A3CF62A00AC8300 /* marker-seen.png */,
+				F7C6161D1A3CF97B00AC8300 /* arrow-up.png */,
+				F7BE37241A328492006B08BA /* clock.png */,
+				F7BE37201A32815D006B08BA /* test-feature.jpg */,
+				F7C334A91A30F1E00019F40D /* login-logo.png */,
+				F7C334A51A30F1B70019F40D /* marker.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		F7C5E4941A3D4008003271D7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F7C5E4991A3D4009003271D7 /* Alamofire.framework */,
+				F7C5E49B1A3D4009003271D7 /* AlamofireTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F7C5E4A31A3D4170003271D7 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F7BE19781A3D0164001B8D96 /* Bridge-Header.h */,
+				F7C5E4A41A3D419E003271D7 /* MarkerService.swift */,
+				F7E2D6251A3F6C75003269BB /* ViewPostService.swift */,
+				F7C86CAC1A40B83400FE514F /* LoginService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		F7C616251A3CFF6500AC8300 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F7C81BC11A466CCB00FF8F34 /* SystemConfiguration.framework */,
+				F7C616231A3CFF5A00AC8300 /* FacebookSDK.framework */,
+				F74BC02D1A2FDDDD004439F2 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F7C7FE5F1A4907AE00371C7B /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				F7C7FE731A490A2A00371C7B /* plus-simple-7.png */,
+				F7C7FE711A490A0C00371C7B /* list-fat-7.png */,
+				F7C7FE6F1A49094700371C7B /* compass-point-7.png */,
+				F7C7FE6D1A49090A00371C7B /* pin-map-7.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
+		F7CED4131A414842001A50FD /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				F7CED4151A414AB0001A50FD /* LoadingIndicator.swift */,
+				F7C81BC41A466D6D00FF8F34 /* Reachability.swift */,
+			);
+			name = Other;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -122,10 +348,13 @@
 				F74BBFFE1A2FD487004439F2 /* Sources */,
 				F74BBFFF1A2FD487004439F2 /* Frameworks */,
 				F74BC0001A2FD487004439F2 /* Resources */,
+				F7C5E4A21A3D410B003271D7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F7C5E49D1A3D40DB003271D7 /* PBXTargetDependency */,
+				F7C5E4A11A3D410A003271D7 /* PBXTargetDependency */,
 			);
 			name = DropChat;
 			productName = DropChat;
@@ -179,6 +408,12 @@
 			mainGroup = F74BBFF91A2FD487004439F2;
 			productRefGroup = F74BC0031A2FD487004439F2 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F7C5E4941A3D4008003271D7 /* Products */;
+					ProjectRef = F7C5E4931A3D4008003271D7 /* Alamofire.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F74BC0011A2FD487004439F2 /* DropChat */,
@@ -187,14 +422,48 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		F7C5E4991A3D4009003271D7 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = F7C5E4981A3D4009003271D7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F7C5E49B1A3D4009003271D7 /* AlamofireTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AlamofireTests.xctest;
+			remoteRef = F7C5E49A1A3D4009003271D7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		F74BC0001A2FD487004439F2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7C6161C1A3CF62A00AC8300 /* marker-seen.png in Resources */,
+				F7C6161A1A3CF62A00AC8300 /* marker-normal.png in Resources */,
+				F7BE37251A328492006B08BA /* clock.png in Resources */,
+				F7C334AA1A30F1E00019F40D /* login-logo.png in Resources */,
+				F7C6161B1A3CF62A00AC8300 /* marker-owner.png in Resources */,
+				F7C7FE701A49094700371C7B /* compass-point-7.png in Resources */,
+				F7BAD4631A3FFB3600CE5977 /* arrow-up-off.png in Resources */,
 				F74BC00D1A2FD487004439F2 /* Main.storyboard in Resources */,
+				F7BAD4621A3FFB3600CE5977 /* arrow-down-off.png in Resources */,
+				F7C772F91A48CBA900365D2E /* add-btn.png in Resources */,
+				F7BE37211A32815D006B08BA /* test-feature.jpg in Resources */,
+				F7C7FE741A490A2A00371C7B /* plus-simple-7.png in Resources */,
+				F7C6161E1A3CF97B00AC8300 /* arrow-up.png in Resources */,
 				F74BC0121A2FD487004439F2 /* LaunchScreen.xib in Resources */,
+				F7E00BA61A429FDA00F2AC0A /* 719.GIF in Resources */,
+				F7C616201A3CF9C600AC8300 /* arrow-down.png in Resources */,
+				F7C7FE6E1A49090A00371C7B /* pin-map-7.png in Resources */,
 				F74BC00F1A2FD487004439F2 /* Images.xcassets in Resources */,
+				F7C7FE721A490A0C00371C7B /* list-fat-7.png in Resources */,
+				F7C334A61A30F1B70019F40D /* marker.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,8 +481,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F74BC00A1A2FD487004439F2 /* ViewController.swift in Sources */,
+				F7CED4161A414AB0001A50FD /* LoadingIndicator.swift in Sources */,
+				F74BC02A1A2FDCCF004439F2 /* LoginViewController.swift in Sources */,
+				F7C5E4A51A3D419E003271D7 /* MarkerService.swift in Sources */,
+				F7BE371B1A325A11006B08BA /* CameraViewController.swift in Sources */,
+				F7BE37231A328259006B08BA /* ViewPostController.swift in Sources */,
+				F7E2D6261A3F6C75003269BB /* ViewPostService.swift in Sources */,
+				F74BC02C1A2FDD27004439F2 /* MapViewController.swift in Sources */,
+				F7C86CAD1A40B83400FE514F /* LoginService.swift in Sources */,
+				F7C5159F1A32C57D00B1985D /* CommentTableViewCell.swift in Sources */,
+				F713DE4E1A3D6F43003F69BA /* CustomMKAnnotation.swift in Sources */,
+				F7D1D8981A31765100D89A22 /* CustomAnnotationView.swift in Sources */,
 				F74BC0081A2FD487004439F2 /* AppDelegate.swift in Sources */,
+				F7C81BC51A466D6E00FF8F34 /* Reachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +512,16 @@
 			isa = PBXTargetDependency;
 			target = F74BC0011A2FD487004439F2 /* DropChat */;
 			targetProxy = F74BC0181A2FD487004439F2 /* PBXContainerItemProxy */;
+		};
+		F7C5E49D1A3D40DB003271D7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Alamofire;
+			targetProxy = F7C5E49C1A3D40DB003271D7 /* PBXContainerItemProxy */;
+		};
+		F7C5E4A11A3D410A003271D7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Alamofire;
+			targetProxy = F7C5E4A01A3D410A003271D7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -336,9 +626,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/smith1302/Documents/FacebookSDK,
+				);
 				INFOPLIST_FILE = DropChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridge-Header.h";
 			};
 			name = Debug;
 		};
@@ -346,9 +643,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/smith1302/Documents/FacebookSDK,
+				);
 				INFOPLIST_FILE = DropChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridge-Header.h";
 			};
 			name = Release;
 		};
@@ -405,6 +709,7 @@
 				F74BC0231A2FD487004439F2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F74BC0241A2FD487004439F2 /* Build configuration list for PBXNativeTarget "DropChatTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +718,7 @@
 				F74BC0261A2FD487004439F2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
