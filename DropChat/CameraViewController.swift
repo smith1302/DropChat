@@ -80,6 +80,7 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate, UI
             let viewControllers:[AnyObject] = (self.navigationController?.viewControllers)!
             let rootViewController:MapViewController = viewControllers[viewControllers.count - 2] as MapViewController
             rootViewController.hasLoadedMarkers = false
+            rootViewController.refresh()
             self.navigationController?.popToRootViewControllerAnimated(true)
         } else if (success == -1) {
             enableBarButtons(true)

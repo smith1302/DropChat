@@ -9,8 +9,8 @@
 import Alamofire
 
 class MarkerService: NSObject {
-
-    func getMarkers(fbid:String, latitude:Double, longitude:Double, distance: Double, markerReceived: (NSDictionary) -> ()) {
+    
+    func getMarkersLimit(fbid:String, latitude:Double, longitude:Double, distance: Double, markerReceived: (NSDictionary) -> (), limit: Int, orderBy: String) {
         var info:NSDictionary!
         // Return false if no active wifi connection
         if (!Reachability.isConnectedToNetwork()) {
@@ -19,9 +19,9 @@ class MarkerService: NSObject {
             return
         }
         Alamofire.request(
-                .POST,
-                "http://www.hiddenninjagames.com/DropChat/DB/getMarkers.php",
-                parameters: ["fbid":fbid, "latitude":latitude, "longitude":longitude, "distance":distance]
+            .POST,
+            "http://www.hiddenninjagames.com/DropChat/DB/getMarkers.php",
+            parameters: ["fbid":fbid, "latitude":latitude, "longitude":longitude, "distance":distance, "limit": limit, "order": orderBy]
             )
             .responseJSON{ (request, response, JSON, error) in
                 if (JSON != nil) {
@@ -31,7 +31,11 @@ class MarkerService: NSObject {
                     info = ["success": -1, "message":"no wifi"]
                     markerReceived(info)
                 }
-            }
+        }
+    }
+
+    func getMarkers(fbid:String, latitude:Double, longitude:Double, distance: Double, markerReceived: (NSDictionary) -> ()) {
+        getMarkersLimit(fbid, latitude: latitude, longitude: longitude, distance: distance, markerReceived: markerReceived, limit: 60, orderBy: "")
     }
     
     func addMarker(text:String, fbid:String, latitude:Double, longitude:Double, image_data:NSData, addMarkerCallback: (NSDictionary) -> ()) {

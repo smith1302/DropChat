@@ -25,8 +25,13 @@ class ViewPostService: NSObject {
             parameters: ["fbid":fbid, "text":text, "markerID":markerID]
             )
             .responseJSON{ (request, response, JSON, error) in
-                info = JSON as NSDictionary
-                commentAdded(info)
+                if (JSON != nil) {
+                    info = JSON as NSDictionary
+                    commentAdded(info)
+                } else {
+                    info = ["success": -1, "message":"no wifi"]
+                    commentAdded(info)
+                }
             }
     }
     

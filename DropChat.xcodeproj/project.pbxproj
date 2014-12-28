@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		F713DE4E1A3D6F43003F69BA /* CustomMKAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F713DE4D1A3D6F43003F69BA /* CustomMKAnnotation.swift */; };
+		F721F27E1A4F66F6009AAA1D /* arrow-down.png in Resources */ = {isa = PBXBuildFile; fileRef = F721F27A1A4F66F6009AAA1D /* arrow-down.png */; };
+		F721F27F1A4F66F6009AAA1D /* arrow-up-off.png in Resources */ = {isa = PBXBuildFile; fileRef = F721F27B1A4F66F6009AAA1D /* arrow-up-off.png */; };
+		F721F2801A4F66F6009AAA1D /* arrow-up.png in Resources */ = {isa = PBXBuildFile; fileRef = F721F27C1A4F66F6009AAA1D /* arrow-up.png */; };
+		F721F2841A4F6857009AAA1D /* arrow-down-off.png in Resources */ = {isa = PBXBuildFile; fileRef = F721F2831A4F6857009AAA1D /* arrow-down-off.png */; };
+		F7444EB11A4E90B400652F0F /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7444EB01A4E90B400652F0F /* ListViewController.swift */; };
+		F7444EB31A4E912300652F0F /* ListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7444EB21A4E912300652F0F /* ListViewCell.swift */; };
 		F74BC0081A2FD487004439F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74BC0071A2FD487004439F2 /* AppDelegate.swift */; };
 		F74BC00D1A2FD487004439F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F74BC00B1A2FD487004439F2 /* Main.storyboard */; };
 		F74BC00F1A2FD487004439F2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F74BC00E1A2FD487004439F2 /* Images.xcassets */; };
@@ -16,8 +22,6 @@
 		F74BC02A1A2FDCCF004439F2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74BC0291A2FDCCF004439F2 /* LoginViewController.swift */; };
 		F74BC02C1A2FDD27004439F2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74BC02B1A2FDD27004439F2 /* MapViewController.swift */; };
 		F74BC02E1A2FDDDD004439F2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F74BC02D1A2FDDDD004439F2 /* MapKit.framework */; };
-		F7BAD4621A3FFB3600CE5977 /* arrow-down-off.png in Resources */ = {isa = PBXBuildFile; fileRef = F7BAD4601A3FFB3600CE5977 /* arrow-down-off.png */; };
-		F7BAD4631A3FFB3600CE5977 /* arrow-up-off.png in Resources */ = {isa = PBXBuildFile; fileRef = F7BAD4611A3FFB3600CE5977 /* arrow-up-off.png */; };
 		F7BE371B1A325A11006B08BA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BE371A1A325A11006B08BA /* CameraViewController.swift */; };
 		F7BE37211A32815D006B08BA /* test-feature.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F7BE37201A32815D006B08BA /* test-feature.jpg */; };
 		F7BE37231A328259006B08BA /* ViewPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BE37221A328259006B08BA /* ViewPostController.swift */; };
@@ -31,9 +35,9 @@
 		F7C6161A1A3CF62A00AC8300 /* marker-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C616171A3CF62A00AC8300 /* marker-normal.png */; };
 		F7C6161B1A3CF62A00AC8300 /* marker-owner.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C616181A3CF62A00AC8300 /* marker-owner.png */; };
 		F7C6161C1A3CF62A00AC8300 /* marker-seen.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C616191A3CF62A00AC8300 /* marker-seen.png */; };
-		F7C6161E1A3CF97B00AC8300 /* arrow-up.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C6161D1A3CF97B00AC8300 /* arrow-up.png */; };
-		F7C616201A3CF9C600AC8300 /* arrow-down.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C6161F1A3CF9C600AC8300 /* arrow-down.png */; };
 		F7C616241A3CFF5A00AC8300 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7C616231A3CFF5A00AC8300 /* FacebookSDK.framework */; };
+		F7C6E2CE1A4F38C30078A15F /* user_male_2-50.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C6E2CD1A4F38C30078A15F /* user_male_2-50.png */; };
+		F7C6E2D11A4F40BB0078A15F /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C6E2D01A4F40BB0078A15F /* ImageCache.swift */; };
 		F7C772F91A48CBA900365D2E /* add-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C772F81A48CBA900365D2E /* add-btn.png */; };
 		F7C7FE6E1A49090A00371C7B /* pin-map-7.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C7FE6D1A49090A00371C7B /* pin-map-7.png */; };
 		F7C7FE701A49094700371C7B /* compass-point-7.png in Resources */ = {isa = PBXBuildFile; fileRef = F7C7FE6F1A49094700371C7B /* compass-point-7.png */; };
@@ -102,6 +106,12 @@
 
 /* Begin PBXFileReference section */
 		F713DE4D1A3D6F43003F69BA /* CustomMKAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMKAnnotation.swift; sourceTree = "<group>"; };
+		F721F27A1A4F66F6009AAA1D /* arrow-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-down.png"; sourceTree = "<group>"; };
+		F721F27B1A4F66F6009AAA1D /* arrow-up-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-off.png"; sourceTree = "<group>"; };
+		F721F27C1A4F66F6009AAA1D /* arrow-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up.png"; sourceTree = "<group>"; };
+		F721F2831A4F6857009AAA1D /* arrow-down-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-down-off.png"; sourceTree = "<group>"; };
+		F7444EB01A4E90B400652F0F /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		F7444EB21A4E912300652F0F /* ListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewCell.swift; sourceTree = "<group>"; };
 		F74BC0021A2FD487004439F2 /* DropChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DropChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F74BC0061A2FD487004439F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F74BC0071A2FD487004439F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -114,8 +124,6 @@
 		F74BC0291A2FDCCF004439F2 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F74BC02B1A2FDD27004439F2 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		F74BC02D1A2FDDDD004439F2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		F7BAD4601A3FFB3600CE5977 /* arrow-down-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-down-off.png"; sourceTree = "<group>"; };
-		F7BAD4611A3FFB3600CE5977 /* arrow-up-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up-off.png"; sourceTree = "<group>"; };
 		F7BE19781A3D0164001B8D96 /* Bridge-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridge-Header.h"; path = "../Bridge-Header.h"; sourceTree = "<group>"; };
 		F7BE371A1A325A11006B08BA /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		F7BE37201A32815D006B08BA /* test-feature.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "test-feature.jpg"; sourceTree = "<group>"; };
@@ -129,9 +137,9 @@
 		F7C616171A3CF62A00AC8300 /* marker-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-normal.png"; sourceTree = "<group>"; };
 		F7C616181A3CF62A00AC8300 /* marker-owner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-owner.png"; sourceTree = "<group>"; };
 		F7C616191A3CF62A00AC8300 /* marker-seen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "marker-seen.png"; sourceTree = "<group>"; };
-		F7C6161D1A3CF97B00AC8300 /* arrow-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-up.png"; sourceTree = "<group>"; };
-		F7C6161F1A3CF9C600AC8300 /* arrow-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-down.png"; sourceTree = "<group>"; };
 		F7C616231A3CFF5A00AC8300 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		F7C6E2CD1A4F38C30078A15F /* user_male_2-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user_male_2-50.png"; sourceTree = "<group>"; };
+		F7C6E2D01A4F40BB0078A15F /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		F7C772F81A48CBA900365D2E /* add-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-btn.png"; sourceTree = "<group>"; };
 		F7C7FE6D1A49090A00371C7B /* pin-map-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin-map-7.png"; sourceTree = "<group>"; };
 		F7C7FE6F1A49094700371C7B /* compass-point-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compass-point-7.png"; sourceTree = "<group>"; };
@@ -168,6 +176,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F7444EAE1A4E908400652F0F /* ListView */ = {
+			isa = PBXGroup;
+			children = (
+				F7444EB01A4E90B400652F0F /* ListViewController.swift */,
+				F7444EB21A4E912300652F0F /* ListViewCell.swift */,
+			);
+			name = ListView;
+			sourceTree = "<group>";
+		};
 		F74BBFF91A2FD487004439F2 = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +208,7 @@
 		F74BC0041A2FD487004439F2 /* DropChat */ = {
 			isa = PBXGroup;
 			children = (
+				F7444EAE1A4E908400652F0F /* ListView */,
 				F7CED4131A414842001A50FD /* Other */,
 				F7C5E4A31A3D4170003271D7 /* Services */,
 				F7BE371D1A327E1B006B08BA /* ViewPost */,
@@ -270,16 +288,17 @@
 		F7C427261A30EF5200E2C8CE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F7C6E2CD1A4F38C30078A15F /* user_male_2-50.png */,
 				F7C7FE5F1A4907AE00371C7B /* Icons */,
 				F7E00BA51A429FDA00F2AC0A /* 719.GIF */,
-				F7BAD4601A3FFB3600CE5977 /* arrow-down-off.png */,
-				F7BAD4611A3FFB3600CE5977 /* arrow-up-off.png */,
 				F7C616171A3CF62A00AC8300 /* marker-normal.png */,
+				F721F2831A4F6857009AAA1D /* arrow-down-off.png */,
 				F7C772F81A48CBA900365D2E /* add-btn.png */,
-				F7C6161F1A3CF9C600AC8300 /* arrow-down.png */,
 				F7C616181A3CF62A00AC8300 /* marker-owner.png */,
 				F7C616191A3CF62A00AC8300 /* marker-seen.png */,
-				F7C6161D1A3CF97B00AC8300 /* arrow-up.png */,
+				F721F27A1A4F66F6009AAA1D /* arrow-down.png */,
+				F721F27B1A4F66F6009AAA1D /* arrow-up-off.png */,
+				F721F27C1A4F66F6009AAA1D /* arrow-up.png */,
 				F7BE37241A328492006B08BA /* clock.png */,
 				F7BE37201A32815D006B08BA /* test-feature.jpg */,
 				F7C334A91A30F1E00019F40D /* login-logo.png */,
@@ -334,6 +353,7 @@
 			children = (
 				F7CED4151A414AB0001A50FD /* LoadingIndicator.swift */,
 				F7C81BC41A466D6D00FF8F34 /* Reachability.swift */,
+				F7C6E2D01A4F40BB0078A15F /* ImageCache.swift */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -444,23 +464,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F721F27F1A4F66F6009AAA1D /* arrow-up-off.png in Resources */,
+				F721F27E1A4F66F6009AAA1D /* arrow-down.png in Resources */,
 				F7C6161C1A3CF62A00AC8300 /* marker-seen.png in Resources */,
 				F7C6161A1A3CF62A00AC8300 /* marker-normal.png in Resources */,
 				F7BE37251A328492006B08BA /* clock.png in Resources */,
 				F7C334AA1A30F1E00019F40D /* login-logo.png in Resources */,
 				F7C6161B1A3CF62A00AC8300 /* marker-owner.png in Resources */,
 				F7C7FE701A49094700371C7B /* compass-point-7.png in Resources */,
-				F7BAD4631A3FFB3600CE5977 /* arrow-up-off.png in Resources */,
 				F74BC00D1A2FD487004439F2 /* Main.storyboard in Resources */,
-				F7BAD4621A3FFB3600CE5977 /* arrow-down-off.png in Resources */,
+				F7C6E2CE1A4F38C30078A15F /* user_male_2-50.png in Resources */,
 				F7C772F91A48CBA900365D2E /* add-btn.png in Resources */,
 				F7BE37211A32815D006B08BA /* test-feature.jpg in Resources */,
 				F7C7FE741A490A2A00371C7B /* plus-simple-7.png in Resources */,
-				F7C6161E1A3CF97B00AC8300 /* arrow-up.png in Resources */,
+				F721F2801A4F66F6009AAA1D /* arrow-up.png in Resources */,
 				F74BC0121A2FD487004439F2 /* LaunchScreen.xib in Resources */,
 				F7E00BA61A429FDA00F2AC0A /* 719.GIF in Resources */,
-				F7C616201A3CF9C600AC8300 /* arrow-down.png in Resources */,
 				F7C7FE6E1A49090A00371C7B /* pin-map-7.png in Resources */,
+				F721F2841A4F6857009AAA1D /* arrow-down-off.png in Resources */,
 				F74BC00F1A2FD487004439F2 /* Images.xcassets in Resources */,
 				F7C7FE721A490A0C00371C7B /* list-fat-7.png in Resources */,
 				F7C334A61A30F1B70019F40D /* marker.png in Resources */,
@@ -483,10 +504,13 @@
 			files = (
 				F7CED4161A414AB0001A50FD /* LoadingIndicator.swift in Sources */,
 				F74BC02A1A2FDCCF004439F2 /* LoginViewController.swift in Sources */,
+				F7C6E2D11A4F40BB0078A15F /* ImageCache.swift in Sources */,
 				F7C5E4A51A3D419E003271D7 /* MarkerService.swift in Sources */,
 				F7BE371B1A325A11006B08BA /* CameraViewController.swift in Sources */,
 				F7BE37231A328259006B08BA /* ViewPostController.swift in Sources */,
 				F7E2D6261A3F6C75003269BB /* ViewPostService.swift in Sources */,
+				F7444EB11A4E90B400652F0F /* ListViewController.swift in Sources */,
+				F7444EB31A4E912300652F0F /* ListViewCell.swift in Sources */,
 				F74BC02C1A2FDD27004439F2 /* MapViewController.swift in Sources */,
 				F7C86CAD1A40B83400FE514F /* LoginService.swift in Sources */,
 				F7C5159F1A32C57D00B1985D /* CommentTableViewCell.swift in Sources */,

@@ -326,6 +326,11 @@ class CustomAnnotationView: MKAnnotationView {
     // HELPER METHODS
     
     func asynchUpdateImage(url:String, imageView: UIImageView) {
+        if let image = ImageCache.sharedManager.imageCache[url] {
+            dispatch_async(dispatch_get_main_queue(), {
+                imageView.image = image
+            })
+        } else {
             // If the image does not exist, we need to download it
             var imgURL: NSURL = NSURL(string: url)!
             // Download an NSData representation of the image at the URL
@@ -334,6 +339,7 @@ class CustomAnnotationView: MKAnnotationView {
                 if error == nil {
                     let image = UIImage(data: data)
                     dispatch_async(dispatch_get_main_queue(), {
+                        ImageCache.sharedManager.imageCache[url] = image
                         imageView.image = image
                     })
                 }
@@ -341,6 +347,7 @@ class CustomAnnotationView: MKAnnotationView {
                     println("Error: \(error.localizedDescription)")
                 }
             })
+        }
     }
 
 }

@@ -22,6 +22,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var markerDictionary = [Int: CustomAnnotationView]()
     var markersThatExist = [Int : Bool]()
     var locManager:CLLocationManager!
+    var listViewController: ListViewController!
     var fbid:String!
     // First few map calls are inaccurate so wait
     var hasLoadedMarkers:Bool = false;
@@ -128,8 +129,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         } else if (name == "New") {
             let cvc = self.storyboard?.instantiateViewControllerWithIdentifier("CameraViewController") as CameraViewController
             self.showViewController(cvc, sender: self)
-        } else if (name == "Filter") {
-            
+        } else if (name == "List") {
+            if (listViewController == nil) {
+                listViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ListViewController") as ListViewController
+            }
+            self.showViewController(listViewController, sender: self)
         }
     }
     

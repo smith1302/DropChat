@@ -27,8 +27,6 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
     var numComments: Int = 0
     var firstLoad:Bool = true
     
-    var imageCache = [String : UIImage]()
-    
     // textview stuff
     var pcvFrame: CGRect!
     var ctFrame: CGRect!
@@ -139,6 +137,7 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
                 "registeredVote": registeredVoted
             ]
             commentsArray.append(commentArray)
+            self.numComments++
             self.tableView.reloadData()
             var iPath = NSIndexPath(forRow: commentsArray.count, inSection: 0)
             self.tableView.scrollToRowAtIndexPath(iPath, atScrollPosition: .Bottom, animated: true)
@@ -182,6 +181,7 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
             ]
             commentsArray.append(commentArray)
         }
+        self.numComments = commentsArray.count
         self.commentsArray = commentsArray
         self.commentsArray.sort {
             item1, item2 in
@@ -292,8 +292,13 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func asynchUpdateCellImage(indexPath:NSIndexPath) {
-        var image = self.imageCache[self.marker_image]
-        if( image == nil ) {
+        if let image = ImageCache.sharedManager.imageCache[self.marker_image] {
+            dispatch_async(dispatch_get_main_queue(), {
+                if let cellToUpdate = self.tableView.cellForRowAtIndexPath(indexPath) as? CommentTableViewCell {
+                    cellToUpdate.markerImage?.image = image
+                }
+            })
+        } else {
             // If the image does not exist, we need to download it
             var imgURL: NSURL = NSURL(string: self.marker_image)!
             
@@ -301,10 +306,10 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
             let request: NSURLRequest = NSURLRequest(URL: imgURL)
             NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse!,data: NSData!,error: NSError!) -> Void in
                 if error == nil {
-                    image = UIImage(data: data)
+                    let image = UIImage(data: data)
                     
                     // Store the image in to our cache
-                    self.imageCache[self.marker_image] = image
+                    ImageCache.sharedManager.imageCache[self.marker_image] = image
                     dispatch_async(dispatch_get_main_queue(), {
                         if let cellToUpdate = self.tableView.cellForRowAtIndexPath(indexPath) as? CommentTableViewCell {
                             cellToUpdate.markerImage?.image = image
@@ -316,13 +321,6 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
                 }
             })
             
-        }
-        else {
-            dispatch_async(dispatch_get_main_queue(), {
-                if let cellToUpdate = self.tableView.cellForRowAtIndexPath(indexPath) as? CommentTableViewCell {
-                    cellToUpdate.markerImage?.image = image
-                }
-            })
         }
     }
 
