@@ -62,9 +62,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         )
         var region = MKCoordinateRegion( center: center, span: span )
         self.mapView.setRegion(region, animated: true)
-        if (!CLLocationManager.locationServicesEnabled()) {
-            showAlertWithMessage("Drop Chat", message: "To see posts near you, enable location services!")
-        }
         self.mapView.delegate = self
         self.mapView.showsUserLocation = true
         self.mapView.userLocation.title = ""
@@ -76,15 +73,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func refresh() {
-        // Reset this so markers get pulled again
-        // Only if its over cacheLoadMin, meaning its been loaded before
-//        if ( cacheLoadCount  > cacheLoadMin) {
-//            cacheLoadCount = cacheLoadMin
-//        }
-        // Loading stuff
+        if (!CLLocationManager.locationServicesEnabled() || (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Denied)) {
+            showAlertWithMessage("Drop Chat", message: "To see posts near you, enable location services in your device's privacy settings.")
+            return
+        }
+        
         loadingIndicator.startLoading()
-        println("Refreshing method, getting markers")
-
         ms.getMarkers(self.fbid, latitude: self.mapView.centerCoordinate.latitude, longitude: self.mapView.centerCoordinate.longitude, distance:getSpanDistance(), self.markersReceived)
     }
     
@@ -153,12 +147,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         var created = data.objectForKey("created") as String
         let createdDate = stringToDate(created)
         let expired = isMarkerExpired(createdDate)
-        println("Preparing --")
-        println((data.objectForKey("text") as String))
         // Only add it if its not in the Dictionary, otherwise just update the num comments or delete it
         var markerID:Int = (data.objectForKey("markerID") as String).toInt()!
         if let marker = markerDictionary[markerID] {
-                println("editing it")
                 var numComments = (data.objectForKey("numComments") as String).toInt()
                 if (!expired) {
                     marker.setNumComments(numComments!)
@@ -169,7 +160,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 }
         } else { // doesnt exist, add it
             if (!expired) {
-                println("will add it")
                 self.mapView.addAnnotation(information)
                 let customMarker:CustomAnnotationView = CustomAnnotationView(annotation: information, reuseIdentifier: (data.objectForKey("markerID") as String), selfView: self) as CustomAnnotationView
                 customMarker.setMarkerData(
@@ -182,8 +172,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func updateUserLoc(location: CLLocation) {
-        let spanX = 0.01
-        let spanY = 0.01
+        let spanX = 0.006
+        let spanY = 0.006
         var newRegion = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpanMake(spanX, spanY))
         self.mapView.setRegion(newRegion, animated: true)
     }
@@ -280,8 +270,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         if markerView == nil {
             markerView = markerDictionary[markerID]
             let customMarker = markerView as CustomAnnotationView
-            println("Adding Marker:")
-            println(customMarker.text)
             customMarker.setNeedsDisplay()
             customMarker.frame = CGRectMake(0, 0, 44, 56)
             customMarker.backgroundColor = UIColor.clearColor()

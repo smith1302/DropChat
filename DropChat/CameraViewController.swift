@@ -162,6 +162,11 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate, UI
             } else {
                 imageData = UIImageJPEGRepresentation(editedImage, 0.5)
             }
+            if (!Reachability.isConnectedToNetwork()) {
+                picker.dismissViewControllerAnimated(true, completion: nil)
+                addMarkerCallback(["success": -1, "message":"no wifi"])
+                return
+            }
             var text = textView.text
             var lat = locManager.location.coordinate.latitude
             var long = locManager.location.coordinate.longitude

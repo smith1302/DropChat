@@ -58,9 +58,36 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
             NSUserDefaults.standardUserDefaults().synchronize()
             let ls = LoginService()
             ls.register(fbid, email: userEmail, name: name, profile_image: profile_image)
-            let navigationController = self.storyboard?.instantiateViewControllerWithIdentifier("NavigationController") as UIViewController
-            self.showViewController(navigationController, sender: self)
+            var nextController: UIViewController!
+            if (shouldShowAllowLocation()) {
+                nextController = self.storyboard?.instantiateViewControllerWithIdentifier("AllowLocationViewController") as UIViewController
+            } else {
+                nextController = self.storyboard?.instantiateViewControllerWithIdentifier("NavigationController") as UIViewController
+            }
+            self.showViewController(nextController, sender: self)
         }
+    }
+    
+    func shouldShowAllowLocation() -> Bool {
+        let status = CLLocationManager.authorizationStatus()
+        var locationStatus: String!
+        var needsPermission = true
+        switch status {
+        case CLAuthorizationStatus.Restricted:
+            locationStatus = "Access: Restricted"
+            break
+        case CLAuthorizationStatus.Denied:
+            locationStatus = "Access: Denied"
+            break
+        case CLAuthorizationStatus.NotDetermined:
+            locationStatus = "Access: NotDetermined"
+            break
+        default:
+            locationStatus = "Access: Allowed"
+            needsPermission = false
+        }
+        return needsPermission
+
     }
     
     func showAlertWithMessage(title:String, message:String) {

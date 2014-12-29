@@ -31,6 +31,8 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
     var pcvFrame: CGRect!
     var ctFrame: CGRect!
     let refreshControl = UIRefreshControl()
+    var protoCell: CommentTableViewCell!
+    var commentTextH: CGFloat!
 
     @IBOutlet weak var postCommentView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -50,7 +52,7 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl)
         self.tableView.sendSubviewToBack(refreshControl)
-        self.tableView.backgroundColor = UIColorFromRGB(0xE8E8E8)//UIColorFromRGB(0xFAEDD9)
+        self.tableView.backgroundColor =  UIColor(red: 210/255.0, green: 229/255.0, blue: 241/255.0, alpha: 1)
         self.tableView.layoutMargins = UIEdgeInsetsZero;
         self.tableView.separatorInset = UIEdgeInsetsZero;
 
@@ -61,6 +63,7 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
         self.commentText.layer.borderColor = UIColorFromRGB(0xDDDDDD).CGColor
         self.commentText.layer.cornerRadius = 6.0
         self.commentText.layer.borderWidth = 1.0
+        self.commentTextH = commentText.frame.size.height
         self.pcvFrame = postCommentView.frame
         self.ctFrame = commentText.frame
         self.commentText.delegate = self
@@ -79,6 +82,11 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.Interactive
         // Get Comments
         vps.getComments(fbid, markerID: markerID, commentsReceived: commentsReceived)
+        
+        if NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1 {
+            tableView.estimatedRowHeight = 200
+            tableView.rowHeight = UITableViewAutomaticDimension
+        }
     }
     
     func refresh(sender:AnyObject)
@@ -113,6 +121,7 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
         }
         self.commentText.resignFirstResponder()
         self.commentText.text = ""
+        self.placeholder.hidden = false
         self.postCommentView.frame = pcvFrame
         self.commentText.frame = ctFrame
     }
@@ -139,13 +148,26 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
             commentsArray.append(commentArray)
             self.numComments++
             self.tableView.reloadData()
-            var iPath = NSIndexPath(forRow: commentsArray.count, inSection: 0)
-            self.tableView.scrollToRowAtIndexPath(iPath, atScrollPosition: .Bottom, animated: true)
+            self.scrollToBottom()
+            
         } else if (success == -1) {
             showAlertWithMessage("Could not connect", message: "Please check your connection and try again.")
         } else {
             showAlertWithMessage("Drop Chat", message: "Something went wrong!")
         }
+    }
+    
+    func scrollToBottom() {
+        let delay = 0.1 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        let numberOfSections = tableView.numberOfSections()
+        let numberOfRows = tableView.numberOfRowsInSection(numberOfSections-1)
+        dispatch_after(time, dispatch_get_main_queue(), {
+            if numberOfRows > 1 {
+                let indexPath = NSIndexPath(forRow: numberOfRows-2, inSection: (numberOfSections-1))
+                self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Bottom, animated: true)
+            }
+        })
     }
     
     func showAlertWithMessage(title:String, message:String) {
@@ -194,16 +216,17 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func calcTextViewHeight(textView: UITextView) {
-        var oldH = textView.frame.size.height
         var fixedWidth = textView.frame.size.width
         var newSize = textView.sizeThatFits(CGSizeMake(fixedWidth, 300.0))
         var newFrame = textView.frame
         newFrame.size = CGSizeMake(fmax(newSize.width, fixedWidth), newSize.height)
-        var diffH = newFrame.size.height - oldH
-        if (diffH > 8) { // new line
+        var diffH = newFrame.size.height - commentTextH
+        if (diffH > 8 || diffH < -8) { // new line
+            self.postCommentView.setTranslatesAutoresizingMaskIntoConstraints(true)
             postCommentView.frame.size.height += diffH
             postCommentView.frame.origin.y -= diffH
             textView.frame = newFrame
+            commentTextH = newFrame.size.height
         }
     }
     
@@ -223,7 +246,9 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func textViewDidEndEditing(textView: UITextView) {
-        placeholder.hidden = false
+        if (countElements(textView.text) == 0) {
+            placeholder.hidden = false
+        }
     }
     
     func textViewDidChange(textView: UITextView) {
@@ -232,13 +257,13 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
     
     func keyboardWasShown (notification: NSNotification) {
         let info : NSDictionary = notification.userInfo!
-        let keyboardHeight = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue().height
+        let keyboardHeight = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue().height
         self.view.frame.origin.y = -1*keyboardHeight!
     }
     
     func keyboardWasHidden (notification: NSNotification) {
         let info : NSDictionary = notification.userInfo!
-        let keyboardHeight = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue().height
+        let keyboardHeight = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue().height
         self.view.frame.origin.y = 0
     }
     
@@ -277,9 +302,9 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> NSInteger {
-        // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         // +1 for the original post thats not a comment
+        // Also minimum 2, one for header one for "no comments yet" cell
         return commentsArray.count + 1
     }
     
@@ -348,12 +373,12 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
             // Set the arrow up/down buttons to blue if they already voted
             cell.registeredVote = comment["registeredVote"] as Int
             if (cell.registeredVote == 1) {
-                cell.upButton.setImage(UIImage(named: "arrow-up.png"), forState: .Normal)
+                cell.upButton.tintColor = UIColorFromRGB(0x63ACE2)
             } else if (cell.registeredVote == -1) {
-                cell.downButton.setImage(UIImage(named: "arrow-down.png"), forState: .Normal)
+                cell.downButton.tintColor = UIColorFromRGB(0x63ACE2)
             } else {
-                cell.upButton.setImage(UIImage(named: "arrow-up-off.png"), forState: .Normal)
-                cell.downButton.setImage(UIImage(named: "arrow-down-off.png"), forState: .Normal)
+                cell.upButton.tintColor = UIColorFromRGB(0xAAAAAA)
+                cell.downButton.tintColor = UIColorFromRGB(0xAAAAAA)
             }
             var createdDate = self.stringToDate(comment["created"] as String)
             var timeSince = "\(self.timeDifference(createdDate, date2: NSDate().dateByAddingTimeInterval(60*60))) ago"
@@ -365,14 +390,17 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1 {
+            return UITableViewAutomaticDimension
+        }
         if (indexPath.row == 0) {
-            return 452.0
+            return 452
         } else {
             return 119.0
         }
     }
 
-    /*
+    /*s
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return NO if you do not want the specified item to be editable.

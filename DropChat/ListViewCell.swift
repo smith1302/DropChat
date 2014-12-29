@@ -72,6 +72,12 @@ class ListViewCell: UITableViewCell {
         border.borderWidth = width
         nameBar.layer.addSublayer(border)
         nameBar.layer.masksToBounds = true
+        
+        var oWidth = textView.frame.size.width
+        textView.sizeToFit()
+        var newFrame = textView.frame
+        newFrame.size.width = oWidth
+        textView.frame = newFrame
     }
     
     func setData(numComments: Int, text:String, image_url: String, distance: Double, author: String, tableController: ListViewController, rowIndex: Int) {
@@ -90,13 +96,6 @@ class ListViewCell: UITableViewCell {
         // Set Text
         textView.text = mainText
         textView.scrollEnabled = false
-        let fixedWidth = textView.frame.size.width;
-        let newSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
-        var newFrame = textView.frame;
-        var oldTextHeight = textView.frame.size.height
-        newFrame.size = CGSizeMake(fmax(newSize.width, fixedWidth), newSize.height);
-        textView.frame = newFrame;
-        var textHeight = textView.frame.size.height
         // Set Distance
         distanceText.text = (distanceRounded == 1) ? "1 Mile" : "\(distanceRounded) Miles"
         // Set Image view

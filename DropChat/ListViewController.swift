@@ -20,19 +20,21 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
     let vps:ViewPostService = ViewPostService()
     var userLocation: CLLocation!
     let refreshController = UIRefreshControl()
+    var loadingIndicator: LoadingIndicator!
 
     @IBOutlet weak var filterControl: UISegmentedControl!
+    @IBOutlet weak var bgView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.fbid = NSUserDefaults.standardUserDefaults().objectForKey("fbid") as String
         self.hasLocation = false
         self.tableView.separatorStyle = .None
-        //self.view.backgroundColor = UIColor(red: 130/255.0, green: 161/255.0, blue: 201/255.0, alpha: 1)
+        //UIColor(red: 193/255.0, green: 215/255.0, blue: 235/255.0, alpha: 1)
+        self.view.backgroundColor = UIColor(red: 210/255.0, green: 229/255.0, blue: 241/255.0, alpha: 1)
         self.refreshController.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshController)
         self.tableView.sendSubviewToBack(refreshController)
-        self.refreshController.beginRefreshing()
         // Setup our Location Manager
         locManager = CLLocationManager()
         locManager.delegate = self
@@ -41,6 +43,20 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
             locManager!.requestWhenInUseAuthorization()
         }
         locManager.startUpdatingLocation()
+        
+        if (CLLocationManager.locationServicesEnabled() && (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Authorized || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse)) {
+            loadingIndicator = LoadingIndicator(frame: CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.height))
+            self.view.addSubview(loadingIndicator)
+            loadingIndicator.startLoading()
+        } else {
+            showAlertWithMessage("Drop Chat", message: "To see posts near you, enable location services in your device's privacy settings.")
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        if (markerArray.count == 0 && hasLocation == true) {
+            self.refresh()
+        }
     }
     
     // Location handling
@@ -57,6 +73,10 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
     
     func refresh()
     {
+        if (!CLLocationManager.locationServicesEnabled() || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Denied) {
+            showAlertWithMessage("Drop Chat", message: "To see posts near you, enable location services in your device's privacy settings.")
+            return
+        }
         ms.getMarkersLimit(self.fbid, latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, distance:20, markerReceived: self.markersReceived, limit: 25, orderBy: "numComments DESC")
     }
     
@@ -69,14 +89,16 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
     
     func markersReceived(data:NSDictionary) {
         var success = data["success"] as Int
+        println(data)
         if (data.count == 0) || (success != 1) {
             self.showAlertWithMessage("Could not connect", message: "Please check your connection and try again.")
+            self.refreshController.endRefreshing()
+            loadingIndicator.stopLoading()
             return
         }
         var tempRowToMarkerID = [Int]()
         // Iterate and store markers
         var markers: Array? = (data["message"] as Array<NSDictionary>)
-        println(markers)
         for marker:NSDictionary in (markers as Array!) {
             var hasViewed = marker.objectForKey("hasViewed") as String
             var hasViewedBool = (hasViewed == "1" ? true : false)
@@ -101,6 +123,7 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
         }
         
         self.refreshController.endRefreshing()
+        loadingIndicator.stopLoading()
         // Now that we have an array of data, lets reload the table to render it
         self.tableView.reloadData()
     }
@@ -121,24 +144,35 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return markerArray.count
+        return max(1,markerArray.count)
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("listViewCell", forIndexPath: indexPath) as ListViewCell
-        var markerID = rowToMarkerID[indexPath.row]
-        var numComments: Int = markerArray[markerID]?["numComments"] as Int
-        var text: String = markerArray[markerID]?["text"] as String
-        var image_url: String = markerArray[markerID]?["marker_image"] as String
-        var author: String = markerArray[markerID]?["author_name"] as String
-        var lat: Double = markerArray[markerID]?["latitude"] as Double
-        var long: Double = markerArray[markerID]?["longitude"] as Double
-        var distance: Double = 0.8
-        var meters = userLocation.distanceFromLocation(CLLocation(latitude: lat, longitude: long))
-        var miles = meters * 0.000621371
-        cell.setData(numComments, text: text, image_url: image_url, distance: miles, author: author, tableController: self, rowIndex: indexPath.row)
-        
-        return cell
+        if (markerArray.count == 0) {
+            var cell = tableView.dequeueReusableCellWithIdentifier("defaultCell") as? UITableViewCell
+            if cell == nil {
+                cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
+            }
+            cell?.textLabel?.textColor = UIColor.lightGrayColor()
+            cell?.textLabel?.text = "No Drops Yet..."
+            cell?.textLabel?.textAlignment = .Center
+            return cell!
+        } else {
+            var cell = tableView.dequeueReusableCellWithIdentifier("listViewCell", forIndexPath: indexPath) as ListViewCell
+            var markerID = rowToMarkerID[indexPath.row]
+            var numComments: Int = markerArray[markerID]?["numComments"] as Int
+            var text: String = markerArray[markerID]?["text"] as String
+            var image_url: String = markerArray[markerID]?["marker_image"] as String
+            var author: String = markerArray[markerID]?["author_name"] as String
+            var lat: Double = markerArray[markerID]?["latitude"] as Double
+            var long: Double = markerArray[markerID]?["longitude"] as Double
+            var distance: Double = 0.8
+            var meters = userLocation.distanceFromLocation(CLLocation(latitude: lat, longitude: long))
+            var miles = meters * 0.000621371
+            cell.setData(numComments, text: text, image_url: image_url, distance: miles, author: author, tableController: self, rowIndex: indexPath.row)
+            
+            return cell
+        }
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -171,15 +205,19 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
             vps.setMarkerSeen(fbid, markerID: (markerArray[markerID]?["markerID"] as Int))
         }
     }
-
-    /*func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if (indexPath.row == 0) {
-            return 452.0
-        } else {
-            return 119.0
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if (self.markerArray.count == 0) {
+            return 60
         }
-    }*/
-        
+        return 416
+    }
+
+//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        var cell = tableView.dequeueReusableCellWithIdentifier("listViewCell", forIndexPath: indexPath) as ListViewCell
+//        return cell.bgView.frame.size.height + 20
+//    }
+    
     // HELPERS
     
     func isMarkerExpired(createdDate:NSDate) -> Bool {
