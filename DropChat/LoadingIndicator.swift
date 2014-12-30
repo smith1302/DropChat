@@ -66,6 +66,10 @@ class LoadingIndicator: UIView {
         liArr = [li1,li2,li3,li4]
     }
     
+    func clearBackground() {
+        bgView.backgroundColor = UIColor.clearColor()
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.myCustomSetup()

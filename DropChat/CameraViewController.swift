@@ -25,6 +25,8 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Creates the Drop Chat logo in the navbar
+        Helper.makeImageForNavBar(self.navigationItem)
         // hide loader
         loader.stopAnimating()
         loader.hidden = true
@@ -39,7 +41,9 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate, UI
         locManager = CLLocationManager()
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
-        locManager.requestWhenInUseAuthorization()
+        if (locManager.respondsToSelector(Selector("requestWhenInUseAuthorization"))) {
+            locManager.requestWhenInUseAuthorization()
+        }
         
         textView.delegate = self
         self.automaticallyAdjustsScrollViewInsets = false
@@ -93,10 +97,15 @@ class CameraViewController: UIViewController, UINavigationControllerDelegate, UI
         loader.hidden = true
     }
     
-    func showAlertWithMessage(title: String, message:String) {
-        var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+    func showAlertWithMessage(title:String, message:String) {
+        if objc_getClass("UIAlertController") != nil {
+            var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            var alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "Okay")
+            alert.show()
+        }
     }
     
     override func didReceiveMemoryWarning() {

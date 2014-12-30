@@ -32,6 +32,7 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
     var ctFrame: CGRect!
     let refreshControl = UIRefreshControl()
     var protoCell: CommentTableViewCell!
+    var loadingIndicator:LoadingIndicator!
     var commentTextH: CGFloat!
 
     @IBOutlet weak var postCommentView: UIView!
@@ -43,18 +44,14 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var voteView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.navigationItem.backBarButtonItem?.title = "Back"
-        self.view.bringSubviewToFront(self.postCommentView)
-//        // Pull to refresh
+        // Pull to refresh
         self.tableView.delegate = self
         self.tableView.dataSource = self
         refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl)
         self.tableView.sendSubviewToBack(refreshControl)
         self.tableView.backgroundColor =  UIColor(red: 210/255.0, green: 229/255.0, blue: 241/255.0, alpha: 1)
-        self.tableView.layoutMargins = UIEdgeInsetsZero;
-        self.tableView.separatorInset = UIEdgeInsetsZero;
+        //self.tableView.layoutMargins = UIEdgeInsetsZero;
 
         // Set up the commenting text box
         self.postCommentView.layer.borderColor = UIColorFromRGB(0xDADADA).CGColor
@@ -82,6 +79,12 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.Interactive
         // Get Comments
         vps.getComments(fbid, markerID: markerID, commentsReceived: commentsReceived)
+        // Show loader for get comments
+        loadingIndicator = LoadingIndicator(frame: CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.height))
+        self.view.addSubview(loadingIndicator)
+        self.view.bringSubviewToFront(loadingIndicator)
+        loadingIndicator.clearBackground()
+        loadingIndicator.startLoading()
         
         if NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1 {
             tableView.estimatedRowHeight = 200
@@ -122,8 +125,6 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
         self.commentText.resignFirstResponder()
         self.commentText.text = ""
         self.placeholder.hidden = false
-        self.postCommentView.frame = pcvFrame
-        self.commentText.frame = ctFrame
     }
     
     // Called when user adds a new comment
@@ -171,13 +172,19 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func showAlertWithMessage(title:String, message:String) {
-        var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        if objc_getClass("UIAlertController") != nil {
+            var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            var alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "Okay")
+            alert.show()
+        }
     }
     
     // Pulled from Database
     func commentsReceived(data:NSDictionary) {
+        loadingIndicator.stopLoading()
         var success = data["success"] as Int
         if (success != 1) {
             showAlertWithMessage("Could not connect", message: "Please check your connection and try again.")
@@ -282,11 +289,6 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
         var timeSince = ((dateComponent.day > 0) ? "\(dateComponent.day) days": ((dateComponent.hour > 0) ? "\(dateComponent.hour) hours" : ((dateComponent.minute > 1) ? "\(dateComponent.minute) minutes" : "0 minutes" )))
         return timeSince
     }
-    
-    override func viewDidLayoutSubviews() {
-        self.tableView.layoutMargins = UIEdgeInsetsZero;
-        self.tableView.separatorInset = UIEdgeInsetsZero;
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -377,15 +379,27 @@ class ViewPostController: UIViewController, UITableViewDelegate, UITableViewData
             } else if (cell.registeredVote == -1) {
                 cell.downButton.tintColor = UIColorFromRGB(0x63ACE2)
             } else {
-                cell.upButton.tintColor = UIColorFromRGB(0xAAAAAA)
-                cell.downButton.tintColor = UIColorFromRGB(0xAAAAAA)
+                cell.upButton.tintColor = UIColorFromRGB(0xBBBBBB)
+                cell.downButton.tintColor = UIColorFromRGB(0xBBBBBB)
             }
             var createdDate = self.stringToDate(comment["created"] as String)
             var timeSince = "\(self.timeDifference(createdDate, date2: NSDate().dateByAddingTimeInterval(60*60))) ago"
             cell.time.text = timeSince
         }
         cell.selectionStyle = UITableViewCellSelectionStyle.None
-        cell.layoutMargins = UIEdgeInsetsZero
+        if cell.respondsToSelector("setSeparatorInset:") {
+            cell.separatorInset = UIEdgeInsetsZero
+        }
+        
+        // Prevent the cell from inheriting the Table View's margin settings
+        if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
+            cell.preservesSuperviewLayoutMargins = false
+        }
+        
+        // Explictly set your cell's layout margins
+        if cell.respondsToSelector("setLayoutMargins:") {
+            cell.layoutMargins = UIEdgeInsetsZero
+        }
         return cell
     }
     

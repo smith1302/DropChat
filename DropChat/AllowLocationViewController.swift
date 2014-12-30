@@ -26,7 +26,9 @@ class AllowLocationViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func allowPress(sender: UIButton) {
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
-        locManager.requestWhenInUseAuthorization()
+        if (locManager.respondsToSelector(Selector("requestWhenInUseAuthorization"))) {
+            locManager.requestWhenInUseAuthorization()
+        }
         locManager.startUpdatingLocation()
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.AuthorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Authorized) {
             self.continueToNext()
@@ -54,8 +56,12 @@ class AllowLocationViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func continueToNext() {
-        let navigationController = self.storyboard?.instantiateViewControllerWithIdentifier("NavigationController") as UIViewController
-        self.showViewController(navigationController, sender: self)
+        let next = self.storyboard?.instantiateViewControllerWithIdentifier("noteViewController") as UIViewController
+        if (self.respondsToSelector(Selector("showViewController"))) {
+            self.showViewController(next, sender: self)
+        } else {
+            self.presentViewController(next, animated: true, completion: nil)
+        }
     }
 
     /*
@@ -69,9 +75,14 @@ class AllowLocationViewController: UIViewController, CLLocationManagerDelegate {
     */
     
     func showAlertWithMessage(title:String, message:String) {
-        var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        if objc_getClass("UIAlertController") != nil {
+            var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            var alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "Okay")
+            alert.show()
+        }
     }
 
 }

@@ -27,6 +27,8 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Creates the Drop Chat logo in the navbar
+        Helper.makeImageForNavBar(self.navigationItem, leftOffset: -55)
         self.fbid = NSUserDefaults.standardUserDefaults().objectForKey("fbid") as String
         self.hasLocation = false
         self.tableView.separatorStyle = .None
@@ -39,8 +41,8 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
         locManager = CLLocationManager()
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
-        if(locManager!.respondsToSelector("requestWhenInUseAuthorization")) {
-            locManager!.requestWhenInUseAuthorization()
+        if (locManager.respondsToSelector(Selector("requestWhenInUseAuthorization"))) {
+            locManager.requestWhenInUseAuthorization()
         }
         locManager.startUpdatingLocation()
         
@@ -50,6 +52,11 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
             loadingIndicator.startLoading()
         } else {
             showAlertWithMessage("Drop Chat", message: "To see posts near you, enable location services in your device's privacy settings.")
+        }
+        
+        if NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1 {
+            tableView.estimatedRowHeight = 410
+            tableView.rowHeight = UITableViewAutomaticDimension
         }
     }
     
@@ -62,13 +69,12 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
     // Location handling
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        let location = locations.last as CLLocation
+        userLocation = location
         if (!hasLocation) {
-            let location = locations.last as CLLocation
-            userLocation = location
             ms.getMarkersLimit(self.fbid, latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, distance:20, markerReceived: self.markersReceived, limit: 25, orderBy: "numComments DESC")
             hasLocation = true
         }
-
     }
     
     func refresh()
@@ -88,40 +94,42 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
     }
     
     func markersReceived(data:NSDictionary) {
-        var success = data["success"] as Int
-        println(data)
-        if (data.count == 0) || (success != 1) {
-            self.showAlertWithMessage("Could not connect", message: "Please check your connection and try again.")
-            self.refreshController.endRefreshing()
-            loadingIndicator.stopLoading()
-            return
-        }
-        var tempRowToMarkerID = [Int]()
-        // Iterate and store markers
-        var markers: Array? = (data["message"] as Array<NSDictionary>)
-        for marker:NSDictionary in (markers as Array!) {
-            var hasViewed = marker.objectForKey("hasViewed") as String
-            var hasViewedBool = (hasViewed == "1" ? true : false)
-            var markerID = (marker.objectForKey("markerID") as String).toInt()
-            // If it doesnt exist in our array lets add it
+        if var success = data["success"] as? Int {
+            if (success != 1) {
+                self.showAlertWithMessage("Could not connect", message: "Please check your connection and try again.")
+                self.refreshController.endRefreshing()
+                loadingIndicator.stopLoading()
+                return
+            }
+            var tempRowToMarkerID = [Int]()
+            var tempMarkerArray = [Int : [String: AnyObject]]()
+            // Iterate and store markers
+            var markers: Array? = (data["message"] as Array<NSDictionary>)
+            for marker:NSDictionary in (markers as Array!) {
+                var hasViewed = marker.objectForKey("hasViewed") as String
+                var hasViewedBool = (hasViewed == "1" ? true : false)
+                var markerID = (marker.objectForKey("markerID") as String).toInt()
+                // If it doesnt exist in our array lets add it
 
-            markerArray[markerID!] = [
-                    "latitude" : (marker.objectForKey("latitude") as NSString).doubleValue,
-                    "longitude" : (marker.objectForKey("longitude") as NSString).doubleValue,
-                    "text" : marker.objectForKey("text") as String,
-                    "authorID" : marker.objectForKey("authorID") as String,//
-                    "author_name" : marker.objectForKey("author_name") as String,//
-                    "markerID" : ((marker.objectForKey("markerID") as String).toInt())!,//
-                    "marker_image" : marker.objectForKey("image_url") as String,
-                    "numComments" : ((marker.objectForKey("numComments") as String).toInt())!,
-                    "created" : marker.objectForKey("created") as String,
-                    "hasViewed": hasViewedBool
-            ]
-            // Why I made 2 arrays for this? Cause I'm dumb. Change later
-            tempRowToMarkerID.append(markerID!)
+                tempMarkerArray[markerID!] = [
+                        "latitude" : (marker.objectForKey("latitude") as NSString).doubleValue,
+                        "longitude" : (marker.objectForKey("longitude") as NSString).doubleValue,
+                        "text" : marker.objectForKey("text") as String,
+                        "authorID" : marker.objectForKey("authorID") as String,//
+                        "author_name" : marker.objectForKey("author_name") as String,//
+                        "markerID" : ((marker.objectForKey("markerID") as String).toInt())!,//
+                        "marker_image" : marker.objectForKey("image_url") as String,
+                        "numComments" : ((marker.objectForKey("numComments") as String).toInt())!,
+                        "created" : marker.objectForKey("created") as String,
+                        "hasViewed": hasViewedBool
+                ]
+                // Why I made 2 arrays for this? Cause I'm dumb. Change later
+                tempRowToMarkerID.append(markerID!)
+            }
+            
             rowToMarkerID = tempRowToMarkerID
+            markerArray = tempMarkerArray
         }
-        
         self.refreshController.endRefreshing()
         loadingIndicator.stopLoading()
         // Now that we have an array of data, lets reload the table to render it
@@ -154,7 +162,7 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
                 cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
             }
             cell?.textLabel?.textColor = UIColor.lightGrayColor()
-            cell?.textLabel?.text = "No Drops Yet..."
+            cell?.textLabel?.text = "No new drops in your area."
             cell?.textLabel?.textAlignment = .Center
             return cell!
         } else {
@@ -187,19 +195,27 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
             self.refreshController.beginRefreshing()
             return
         }
-        
-        let viewPostController = self.storyboard?.instantiateViewControllerWithIdentifier("ViewPostController") as ViewPostController
+    
+        var viewPostController = ViewPostCache.sharedManager.viewPosts[markerID]
+        if viewPostController == nil {
+            viewPostController = self.storyboard?.instantiateViewControllerWithIdentifier("ViewPostController") as? ViewPostController
+            ViewPostCache.sharedManager.viewPosts[markerID] = viewPostController
+        }
         var coordinate = CLLocationCoordinate2DMake(markerArray[markerID]?["latitude"] as Double, markerArray[markerID]?["longitude"] as Double)
-        viewPostController.coordinate = coordinate
-        viewPostController.marker_image = markerArray[markerID]?["marker_image"] as String
-        viewPostController.text = markerArray[markerID]?["text"] as String
-        viewPostController.markerID = markerArray[markerID]?["markerID"] as Int
-        viewPostController.authorID = markerArray[markerID]?["authorID"] as String
-        viewPostController.author_name = markerArray[markerID]?["author_name"] as String
-        viewPostController.created = markerArray[markerID]?["created"] as String
-        viewPostController.hasViewed = markerArray[markerID]?["hasViewed"] as Bool
-        viewPostController.numComments = markerArray[markerID]?["numComments"] as Int
-        self.showViewController(viewPostController, sender: self)
+        viewPostController?.coordinate = coordinate
+        viewPostController?.marker_image = markerArray[markerID]?["marker_image"] as String
+        viewPostController?.text = markerArray[markerID]?["text"] as String
+        viewPostController?.markerID = markerArray[markerID]?["markerID"] as Int
+        viewPostController?.authorID = markerArray[markerID]?["authorID"] as String
+        viewPostController?.author_name = markerArray[markerID]?["author_name"] as String
+        viewPostController?.created = markerArray[markerID]?["created"] as String
+        viewPostController?.hasViewed = markerArray[markerID]?["hasViewed"] as Bool
+        viewPostController?.numComments = markerArray[markerID]?["numComments"] as Int
+        if (self.respondsToSelector(Selector("showViewController"))) {
+            self.showViewController(viewPostController!, sender: self)
+        } else {
+            self.navigationController?.pushViewController(viewPostController!, animated: true)
+        }
         
         if (!(markerArray[markerID]?["hasViewed"] as Bool)) {
             vps.setMarkerSeen(fbid, markerID: (markerArray[markerID]?["markerID"] as Int))
@@ -210,7 +226,10 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
         if (self.markerArray.count == 0) {
             return 60
         }
-        return 416
+        if NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1 {
+            return UITableViewAutomaticDimension
+        }
+        return 410
     }
 
 //    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -228,9 +247,14 @@ class ListViewController: UITableViewController, CLLocationManagerDelegate{
     }
     
     func showAlertWithMessage(title:String, message:String) {
-        var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        if objc_getClass("UIAlertController") != nil {
+            var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            var alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "Okay")
+            alert.show()
+        }
     }
     
     func stringToDate(time:String) -> NSDate {

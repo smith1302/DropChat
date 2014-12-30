@@ -56,7 +56,7 @@ class ListViewCell: UITableViewCell {
     }
     
     override func drawRect(rect: CGRect) {
-        self.bgView.layer.cornerRadius = 3.5
+        self.bgView.layer.cornerRadius = 4
         bgView.layer.borderColor = UIColor(red: 0.69, green: 0.69, blue: 0.69, alpha: 1).CGColor
         bgView.layer.borderWidth = 0.5
         

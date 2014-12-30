@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import SpriteKit
 
-class CustomAnnotationView: MKAnnotationView {
+class CustomAnnotationView: MKAnnotationView, UIAlertViewDelegate {
     
     var marker_user_image: String = ""
     var marker_image: String!
@@ -195,10 +195,15 @@ class CustomAnnotationView: MKAnnotationView {
         if let touchPoint:CGPoint = touches.anyObject()?.locationInView(self) as CGPoint? {
             var convP = self.convertPoint(touchPoint, toView: xButton)
             if (CGRectContainsPoint(xButton.bounds, convP)) {
-                var alert = UIAlertController(title: "Drop Chat", message: "Are you sure you wish to hide this marker?", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: deleteMarker))
-                alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: nil))
-                self.selfView.presentViewController(alert, animated: true, completion: nil)
+                if objc_getClass("UIAlertController") != nil {
+                    var alert = UIAlertController(title: "Drop Chat", message: "Are you sure you wish to hide this marker?", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: deleteMarker))
+                    alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: nil))
+                    self.selfView.presentViewController(alert, animated: true, completion: nil)
+                } else {
+                    var alert = UIAlertView(title: "Drop Chat", message: "Are you sure you wish to hide this marker?", delegate: self, cancelButtonTitle: "No", otherButtonTitles: "Yes")
+                    alert.show()
+                }
             } else if (CGRectContainsPoint(self.bounds, touchPoint)) {
                 // Released inside annotation
                 self.selfView.openViewPost(self)
@@ -231,7 +236,17 @@ class CustomAnnotationView: MKAnnotationView {
         }
     }
     
+    func alertView(View: UIAlertView!, clickedButtonAtIndex buttonIndex: Int){
+        if (buttonIndex == 1) {
+            deleteMarker()
+        }
+    }
+    
     func deleteMarker(alert: UIAlertAction!){
+        deleteMarker()
+    }
+    
+    func deleteMarker() {
         self.selfView?.ms.hideMarker(self.selfView.fbid, markerID: self.markerID)
         self.mapView.removeAnnotation(annotation)
         self.selfView?.markerDictionary[self.markerID] = nil

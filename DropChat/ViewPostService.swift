@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Eric Smith. All rights reserved.
 //
 
-import Alamofire
-
 class ViewPostService: NSObject {
     
     func addComment(fbid:String, text:String, markerID:Int, commentAdded: (NSDictionary) -> ()) {
@@ -19,10 +17,10 @@ class ViewPostService: NSObject {
             return
         }
         
-        Alamofire.request(
+        Alamofire.manager.request(
             .POST,
             "http://www.hiddenninjagames.com/DropChat/DB/addComment.php",
-            parameters: ["fbid":fbid, "text":text, "markerID":markerID]
+            parameters: ["fbid":fbid, "text":text, "markerID":markerID, "token":TokenCache.sharedManager.tokenCache]
             )
             .responseJSON{ (request, response, JSON, error) in
                 if (JSON != nil) {
@@ -43,16 +41,17 @@ class ViewPostService: NSObject {
             commentsReceived(info)
             return
         }
-        Alamofire.request(
+        Alamofire.manager.request(
             .POST,
             "http://www.hiddenninjagames.com/DropChat/DB/getComments.php",
-            parameters: ["fbid":fbid, "markerID":markerID]
+            parameters: ["fbid":fbid, "markerID":markerID, "token":TokenCache.sharedManager.tokenCache]
         )
         .responseJSON{ (request, response, JSON, error) in
             if (JSON != nil) {
                 info = JSON as NSDictionary
                 commentsReceived(info)
             } else {
+                println(error)
                 info = ["success": -1, "message":"no wifi"]
                 commentsReceived(info)
             }
@@ -67,10 +66,10 @@ class ViewPostService: NSObject {
             voteReceived(info)
             return
         }
-        Alamofire.request(
+        Alamofire.manager.request(
             .POST,
             "http://www.hiddenninjagames.com/DropChat/DB/vote.php",
-            parameters: ["vote":vote, "markerID":markerID, "fbid":fbid, "commentID":commentID]
+            parameters: ["vote":vote, "markerID":markerID, "fbid":fbid, "commentID":commentID, "token":TokenCache.sharedManager.tokenCache]
             )
             .responseJSON{ (request, response, JSON, error) in
                 info = JSON as NSDictionary
@@ -81,10 +80,10 @@ class ViewPostService: NSObject {
     func setMarkerSeen(fbid:String, markerID:Int) {
         var info:NSDictionary!
 
-        Alamofire.request(
+        Alamofire.manager.request(
             .POST,
             "http://www.hiddenninjagames.com/DropChat/DB/viewMarker.php",
-            parameters: ["markerID":markerID, "fbid":fbid]
+            parameters: ["markerID":markerID, "fbid":fbid, "token":TokenCache.sharedManager.tokenCache]
             )
             .responseJSON{ (request, response, JSON, error) in
                 println(JSON)

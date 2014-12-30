@@ -40,6 +40,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         super.viewDidLoad()
         let backButton = UIBarButtonItem()
         backButton.title = "Back"
+        // Creates the Drop Chat logo in the navbar
+        Helper.makeImageForNavBar(self.navigationItem)
         self.navigationItem.backBarButtonItem = backButton
         self.tabBar.delegate = self
         
@@ -48,10 +50,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locManager = CLLocationManager()
         locManager.delegate = self
         locManager.desiredAccuracy = kCLLocationAccuracyBest
-        if(locManager!.respondsToSelector("requestWhenInUseAuthorization")) {
-            locManager!.requestWhenInUseAuthorization()
+        if (locManager.respondsToSelector(Selector("requestWhenInUseAuthorization"))) {
+            locManager.requestWhenInUseAuthorization()
         }
         locManager.startUpdatingLocation()
+        self.mapView.delegate = self
+        self.mapView.showsUserLocation = true
+        self.mapView.userLocation.title = ""
         var center = CLLocationCoordinate2D(
             latitude: 29.652,
             longitude: -82.325
@@ -62,9 +67,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         )
         var region = MKCoordinateRegion( center: center, span: span )
         self.mapView.setRegion(region, animated: true)
-        self.mapView.delegate = self
-        self.mapView.showsUserLocation = true
-        self.mapView.userLocation.title = ""
         hasLoadedMarkers = false;
         // Draw loading indicator
         loadingIndicator = LoadingIndicator(frame: CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.height))
@@ -122,12 +124,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             }
         } else if (name == "New") {
             let cvc = self.storyboard?.instantiateViewControllerWithIdentifier("CameraViewController") as CameraViewController
-            self.showViewController(cvc, sender: self)
+            if (self.respondsToSelector(Selector("showViewController"))) {
+                self.showViewController(cvc, sender: self)
+            } else {
+                self.navigationController?.pushViewController(cvc, animated: true)
+            }
         } else if (name == "List") {
             if (listViewController == nil) {
                 listViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ListViewController") as ListViewController
             }
-            self.showViewController(listViewController, sender: self)
+            if (self.respondsToSelector(Selector("showViewController"))) {
+                self.showViewController(listViewController, sender: self)
+            } else {
+                self.navigationController?.pushViewController(listViewController, animated: true)
+            }
         }
     }
     
@@ -135,7 +145,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     func loginViewShowingLoggedOutUser(loginView : FBLoginView!) {
         println("User Logged Out")
         let loginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("LoginViewController") as UIViewController
-        self.showViewController(loginViewController, sender: self)
+        if (self.respondsToSelector(Selector("showViewController"))) {
+            self.showViewController(loginViewController, sender: self)
+        } else {
+            self.presentViewController(loginViewController, animated: true, completion: nil)
+        }
     }
     
     func addMarker(coord: CLLocationCoordinate2D, data: NSDictionary) {
@@ -172,8 +186,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func updateUserLoc(location: CLLocation) {
-        let spanX = 0.006
-        let spanY = 0.006
+        let spanX = 0.01
+        let spanY = 0.01
         var newRegion = MKCoordinateRegion(center: location.coordinate, span: MKCoordinateSpanMake(spanX, spanY))
         self.mapView.setRegion(newRegion, animated: true)
     }
@@ -198,45 +212,51 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func markersReceived(data:NSDictionary) {
-        var success = data["success"] as Int
-        if (data.count == 0) || (success != 1) {
-            if (success == -1) {
-                showAlertWithMessage("Could not connect", message: "Please check your connection and try again.")
-            } else {
-                println("markers not received")
-                println("Error: \(data)")
+        if var success = data["success"] as? Int {
+            if (success != 1) {
+                if (success == -1) {
+                    showAlertWithMessage("Could not connect", message: "Please check your connection and try again.")
+                } else {
+                    showAlertWithMessage("Oops", message: "Something went wrong, couldn't find any drops!")
+                }
+                loadingIndicator.stopLoading()
+                if (waitForLocationTimer != nil) {
+                    waitForLocationTimer.invalidate()
+                    waitForLocationTimer = nil
+                }
+                return
             }
-            loadingIndicator.stopLoading()
-            if (waitForLocationTimer != nil) {
-                waitForLocationTimer.invalidate()
-                waitForLocationTimer = nil
+            var diff = [Int: Bool]()
+            // To remove markers that dont exist anymore
+            for (myKey,myValue) in markerDictionary {
+                // put all IDs of our local markers into array
+                diff[myKey] = true
             }
-            return
-        }
-        var diff = [Int: Bool]()
-        // To remove markers that dont exist anymore
-        for (myKey,myValue) in markerDictionary {
-            // put all IDs of our local markers into array
-            diff[myKey] = true
-        }
-        var markers: Array? = (data["message"] as Array<NSDictionary>)
-        for marker:NSDictionary in (markers as Array!) {
-            var latitude = (marker.objectForKey("latitude") as NSString).doubleValue
-            var longitude = (marker.objectForKey("longitude") as NSString).doubleValue
-            var markerID = (marker.objectForKey("markerID") as String).toInt()
-            addMarker(CLLocationCoordinate2DMake(latitude, longitude), data: marker)
-            if let doesExist = diff[markerID!] {
-                // Set any overlapping markerIDs to false
-                diff[markerID!] = false
+            if var markers: Array? = (data["message"] as? Array<NSDictionary>) {
+                if (data.count == 0) {
+                    showAlertWithMessage("Drop Chat", message: "No new drops around your area")
+                }
+                for marker:NSDictionary in (markers as Array!) {
+                    var latitude = (marker.objectForKey("latitude") as NSString).doubleValue
+                    var longitude = (marker.objectForKey("longitude") as NSString).doubleValue
+                    var markerID = (marker.objectForKey("markerID") as String).toInt()
+                    addMarker(CLLocationCoordinate2DMake(latitude, longitude), data: marker)
+                    if let doesExist = diff[markerID!] {
+                        // Set any overlapping markerIDs to false
+                        diff[markerID!] = false
+                    }
+                }
+                // Any markerIDs still true dont exist anymore. Remove them
+                for (myKey,myValue) in diff {
+                    if (myValue == true) {
+                        self.mapView.removeAnnotation(markerDictionary[myKey]?.annotation)
+                        markerDictionary[myKey] = nil
+                        markersThatExist[myKey] = nil
+                    }
+                }
             }
-        }
-        // Any markerIDs still true dont exist anymore. Remove them
-        for (myKey,myValue) in diff {
-            if (myValue == true) {
-                self.mapView.removeAnnotation(markerDictionary[myKey]?.annotation)
-                markerDictionary[myKey] = nil
-                markersThatExist[myKey] = nil
-            }
+        } else {
+            showAlertWithMessage("Oops", message: "Something went wrong, couldn't find any drops!")
         }
         // Now that markers are received, start a timer that waits for user location to be available
         waitForLocationTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("waitForAvailableLocation"), userInfo: nil, repeats: true)
@@ -254,9 +274,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func showAlertWithMessage(title:String, message:String) {
-        var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        if objc_getClass("UIAlertController") != nil {
+            var alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            var alert = UIAlertView(title: title, message: message, delegate: nil, cancelButtonTitle: "Okay")
+            alert.show()
+        }
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
@@ -297,17 +322,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             return
         }
         
-        let viewPostController = self.storyboard?.instantiateViewControllerWithIdentifier("ViewPostController") as ViewPostController
-        viewPostController.coordinate = customAnnotation.coordinate
-        viewPostController.marker_image = customAnnotation.marker_image
-        viewPostController.text = customAnnotation.text
-        viewPostController.markerID = customAnnotation.markerID
-        viewPostController.authorID = customAnnotation.authorID
-        viewPostController.author_name = customAnnotation.author_name
-        viewPostController.created = customAnnotation.created
-        viewPostController.hasViewed = customAnnotation.hasViewed
-        viewPostController.numComments = customAnnotation.numComments
-        self.showViewController(viewPostController, sender: self)
+        var viewPostController = ViewPostCache.sharedManager.viewPosts[customAnnotation.markerID]
+        if viewPostController == nil {
+            viewPostController = self.storyboard?.instantiateViewControllerWithIdentifier("ViewPostController") as? ViewPostController
+            ViewPostCache.sharedManager.viewPosts[customAnnotation.markerID] = viewPostController
+        }
+        
+        viewPostController?.coordinate = customAnnotation.coordinate
+        viewPostController?.marker_image = customAnnotation.marker_image
+        viewPostController?.text = customAnnotation.text
+        viewPostController?.markerID = customAnnotation.markerID
+        viewPostController?.authorID = customAnnotation.authorID
+        viewPostController?.author_name = customAnnotation.author_name
+        viewPostController?.created = customAnnotation.created
+        viewPostController?.hasViewed = customAnnotation.hasViewed
+        viewPostController?.numComments = customAnnotation.numComments
+        if (self.respondsToSelector(Selector("showViewController"))) {
+            self.showViewController(viewPostController!, sender: self)
+        } else {
+            self.navigationController?.pushViewController(viewPostController!, animated: true)
+        }
         
         if (!customAnnotation.hasViewed) {
             vps.setMarkerSeen(fbid, markerID: customAnnotation.markerID)

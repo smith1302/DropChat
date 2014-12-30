@@ -14,12 +14,13 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
     @IBOutlet weak var fbLoginView: FBLoginView!
     var sentOnce = false
     var reachability: Reachability = Reachability()
+    var loadingIndicator:LoadingIndicator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.fbLoginView.delegate = self
         self.fbLoginView.readPermissions = ["public_profile", "email", "user_friends"]
-        // Do any additional setup after loading the view.
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,6 +43,31 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
         println("Error: \(handleError.localizedDescription)")
     }
     
+    func loginCallback(data:NSDictionary) {
+        
+        /*if let success = (data["success"] as? Int) {
+            if let reply = (data["message"] as? String) {
+                if (success == -1) {
+                    showAlertWithMessage("Could not connect", message: "Please check your connection and try again.")
+                    return
+                } else if (success == 1) {
+                    var nextController: UIViewController!
+                    if (shouldShowAllowLocation()) {
+                        nextController = self.storyboard?.instantiateViewControllerWithIdentifier("AllowLocationViewController") as UIViewController
+                    } else {
+                        nextController = self.storyboard?.instantiateViewControllerWithIdentifier("NavigationController") as UIViewController
+                    }
+                    self.showViewController(nextController, sender: self)
+                    return
+                } else {
+                    showAlertWithMessage("Could not connect", message: "Something went wrong with the connection. Please try again.")
+                    return
+                }
+            }
+        }
+        showAlertWithMessage("Oops!", message: "Something went wrong with out servers. Please try again.")*/
+    }
+    
     func loginViewFetchedUserInfo(loginView : FBLoginView!, user: FBGraphUser) {
         if (!Reachability.isConnectedToNetwork()) {
             showAlertWithMessage("Could not connect", message: "Please check your connection and try again.")
@@ -57,14 +83,19 @@ class LoginViewController: UIViewController, FBLoginViewDelegate {
             NSUserDefaults.standardUserDefaults().setObject(profile_image, forKey: "profile_image")
             NSUserDefaults.standardUserDefaults().synchronize()
             let ls = LoginService()
-            ls.register(fbid, email: userEmail, name: name, profile_image: profile_image)
+            ls.register(fbid, email: userEmail, name: name, profile_image: profile_image, callback: loginCallback)
             var nextController: UIViewController!
             if (shouldShowAllowLocation()) {
                 nextController = self.storyboard?.instantiateViewControllerWithIdentifier("AllowLocationViewController") as UIViewController
             } else {
                 nextController = self.storyboard?.instantiateViewControllerWithIdentifier("NavigationController") as UIViewController
             }
-            self.showViewController(nextController, sender: self)
+            if (self.respondsToSelector(Selector("showViewController"))) {
+                self.showViewController(nextController, sender: self)
+            } else {
+                self.presentViewController(nextController, animated: true, completion: nil)
+            }
+            return
         }
     }
     

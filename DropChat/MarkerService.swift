@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Eric Smith. All rights reserved.
 //
 
-import Alamofire
-
 class MarkerService: NSObject {
     
     func getMarkersLimit(fbid:String, latitude:Double, longitude:Double, distance: Double, markerReceived: (NSDictionary) -> (), limit: Int, orderBy: String) {
@@ -18,10 +16,10 @@ class MarkerService: NSObject {
             markerReceived(info)
             return
         }
-        Alamofire.request(
+        Alamofire.manager.request(
             .POST,
             "http://www.hiddenninjagames.com/DropChat/DB/getMarkers.php",
-            parameters: ["fbid":fbid, "latitude":latitude, "longitude":longitude, "distance":distance, "limit": limit, "order": orderBy]
+            parameters: ["fbid":fbid, "latitude":latitude, "longitude":longitude, "distance":distance, "limit": limit, "order": orderBy, "token":TokenCache.sharedManager.tokenCache]
             )
             .responseJSON{ (request, response, JSON, error) in
                 if (JSON != nil) {
@@ -48,10 +46,10 @@ class MarkerService: NSObject {
         }
         var latString:String = String(format:"%f", latitude)
         var longString:String = String(format:"%f", longitude)
-        var parameters = ["fbid":fbid, "latitude":latString, "longitude":longString, "text":text]
+        var parameters = ["fbid":fbid, "latitude":latString, "longitude":longString, "text":text, "token":TokenCache.sharedManager.tokenCache]
         let urlRequest = urlRequestWithComponents("http://www.hiddenninjagames.com/DropChat/DB/addMarker.php", parameters: parameters, imageData: image_data)
         
-        Alamofire.upload(urlRequest.0, urlRequest.1)
+        Alamofire.manager.upload(urlRequest.0, data: urlRequest.1)
             .progress { (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) in
                 println("\(totalBytesWritten) / \(totalBytesExpectedToWrite)")
             }
@@ -74,10 +72,10 @@ class MarkerService: NSObject {
     func hideMarker(fbid:String, markerID:Int) {
         var info:NSDictionary!
         
-        Alamofire.request(
+        Alamofire.manager.request(
             .POST,
             "http://www.hiddenninjagames.com/DropChat/DB/hideMarker.php",
-            parameters: ["markerID":markerID, "fbid":fbid]
+            parameters: ["markerID":markerID, "fbid":fbid, "token":TokenCache.sharedManager.tokenCache]
             )
             .responseJSON{ (request, response, JSON, error) in
                 println(JSON)
@@ -90,7 +88,7 @@ class MarkerService: NSObject {
         
         // create url request to send
         var mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
-        mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
+        mutableURLRequest.HTTPMethod = Method.POST.rawValue
         let boundaryConstant = "myRandomBoundary12345";
         let contentType = "multipart/form-data;boundary="+boundaryConstant
         mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
@@ -116,6 +114,6 @@ class MarkerService: NSObject {
         
         
         // return URLRequestConvertible and NSData
-        return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0, uploadData)
+        return (ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0, uploadData)
     }
 }
